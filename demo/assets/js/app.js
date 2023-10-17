@@ -7,15 +7,10 @@ var IMPORT_CONTROLS_SEL = "#import-controls";
 var SOLVER_CONTROLS_SEL = "#solver-controls";
 
 // Boards
-// TODO: Cache puzzles as strings instead of grids to cut down on conversions?
 var boards = {
     "easy": null,
     "medium": null,
     "hard": null,
-    // "very-hard": null,
-    // "insane": null,
-    // "inhuman": null,
-    // "import": null,
 };
 
 var build_board = function(){
@@ -92,17 +87,8 @@ var init_tabs = function(){
         
         // Hide any error messages
         $(MESSAGE_SEL).hide();
-        
-        // If it's the import tab
-        if(t_name === "import"){
-            $(PUZZLE_CONTROLS_SEL).hide();
-            $(IMPORT_CONTROLS_SEL).show();
-        
-        // Otherwise it's a normal difficulty tab
-        } else {
-            $(PUZZLE_CONTROLS_SEL).show();
-            $(IMPORT_CONTROLS_SEL).hide();
-        }
+        $(PUZZLE_CONTROLS_SEL).show();
+        $(IMPORT_CONTROLS_SEL).hide();
         show_puzzle(t_name);
         $t.tab('show');
     });
@@ -121,30 +107,6 @@ var init_controls = function(){
         if(tab_name !== "import"){
             show_puzzle(tab_name, true);
         }
-    });
-    
-    // Import controls
-    $(IMPORT_CONTROLS_SEL + " #import-string").change(function(){
-        /* Update the board to reflect the import string
-        */
-        var import_val = $(this).val();
-        var processed_board = "";
-        for(var i = 0; i < 81; ++i){
-            if(typeof import_val[i] !== "undefined" &&
-                    (sudoku._in(import_val[i], sudoku.DIGITS) || 
-                    import_val[i] === sudoku.BLANK_CHAR)){
-                processed_board += import_val[i];
-            } else {
-                processed_board += sudoku.BLANK_CHAR;
-            }
-        }
-        boards["import"] = sudoku.board_string_to_grid(processed_board);
-        show_puzzle("import");
-    });
-    $(IMPORT_CONTROLS_SEL + " #import-string").keyup(function(){
-        /* Fire a change event on keyup, enforce digits
-        */
-        $(this).change();
     });
     
     // Solver controls

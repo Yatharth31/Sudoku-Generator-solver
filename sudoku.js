@@ -1,12 +1,3 @@
-/*
-    Sudoku.js
-    ---------
-
-    A Sudoku puzzle generator and solver JavaScript library.
-
-    Please see the README for more details.
-*/
-
 (function(root){
     var sudoku = root.sudoku = {};  // Global reference to the sudoku library
 
@@ -19,7 +10,7 @@
     var SQUARE_UNITS_MAP = null;    // Squares -> units map
     var SQUARE_PEERS_MAP = null;    // Squares -> peers map
     
-    var MIN_GIVENS = 17;            // Minimum number of givens 
+    var MIN_GIVENS = 43;            // Minimum number of givens 
     var NR_SQUARES = 81;            // Number of squares
     
     // Define difficulties by how many squares are given to the player in a new
@@ -28,9 +19,6 @@
         "easy":         62,
         "medium":       53,
         "hard":         44,
-        "very-hard":    35,
-        "insane":       26,
-        "inhuman":      17,
     };
 
     // Blank character and board representation
@@ -64,9 +52,6 @@
                 "easy":         61
                 "medium":       52
                 "hard":         43
-                "very-hard":    34
-                "insane":       25
-                "inhuman":      17
             
             
         You may also enter a custom number of squares to be given, e.g.,
@@ -75,9 +60,9 @@
             sudoku.generate(60)
     
     
-        `difficulty` must be a number between 17 and 81 inclusive. If it's
+        `difficulty` must be a number between 43 and 81 inclusive. If it's
         outside of that range, `difficulty` will be set to the closest bound,
-        e.g., 0 -> 17, and 100 -> 81.
+        e.g., 0 -> 43, and 100 -> 81.
         
         
         By default, the puzzles are unique, uless you set `unique` to false. 
@@ -93,7 +78,7 @@
             difficulty = DIFFICULTY[difficulty] || DIFFICULTY.easy;
         }
         
-        // Force difficulty between 17 and 81 inclusive
+        // Force difficulty between 43 and 81 inclusive
         difficulty = sudoku._force_range(difficulty, NR_SQUARES + 1, 
                 MIN_GIVENS);
         
@@ -176,7 +161,7 @@
     sudoku.solve = function(board, reverse){
         /* Solve a sudoku puzzle given a sudoku `board`, i.e., an 81-character 
         string of sudoku.DIGITS, 1-9, and spaces identified by '.', representing the
-        squares. There must be a minimum of 17 givens. If the given board has no
+        squares. There must be a minimum of 43 givens. If the given board has no
         solutions, return false.
         
         Optionally set `reverse` to solve "backwards", i.e., rotate through the
